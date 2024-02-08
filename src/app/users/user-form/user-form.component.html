@@ -1,0 +1,62 @@
+<form #userForm="ngForm" (ngSubmit)="onSubmitForm(userForm)">
+    @if(user){
+    <div class="mb-3">
+      <label for="name" class="form-label">Name</label>
+      <input type="text" #name="ngModel" required [(ngModel)]="user.name" id="name" name="name" class="form-control"
+        minlength="4" placeholder="User name">
+      @if(name.invalid && (name.dirty || name.touched)){
+      <div class="alert alert-danger">
+        <div *ngIf="name.errors?.['required']">Name is required</div>
+        <div *ngIf="name.errors?.['minlength']">Name length must be at least 4 chars</div>
+      </div>
+      }
+    </div>
+    <div class="mb-3">
+      <label for="lastName" class="form-label">Last Name</label>
+      <input type="text" id="lastName" [(ngModel)]="user.lastName" name="lastName" class="form-control"
+        placeholder="User name">
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input type="email" #email="ngModel" email required id="email" [(ngModel)]="user.email" name="email"
+        class="form-control" placeholder="johndoe@gmail.com">
+  
+    </div>
+    @if(email.invalid && (email.dirty || email.touched)){
+    <div class="alert alert-danger">
+      <div *ngIf="email.errors?.['required']">Email is required</div>
+      <div *ngIf="email.errors?.['email']">Wrong email </div>
+    </div>
+    }
+    <div class="mb-3">
+      <label for="fiscalCode" class="form-label">Fiscal Code</label>
+      <input type="text" #fcode="ngModel" id="fiscalCode" [(ngModel)]="user.fiscalCode"
+        pattern="^([A-Z]{6}[0-9LMNPQRSTUV]{2}[ABCDEHLMPRST]{1}[0-9LMNPQRSTUV]{2}[A-Z]{1}[0-9LMNPQRSTUV]{3}[A-Z]{1})$|([0-9]{11})$"
+        name="fiscalCode" class="form-control" placeholder="Fiscal code">
+    </div>
+    @if(fcode.invalid && (fcode.dirty || fcode.touched)){
+    <div class="alert alert-danger">
+      <div *ngIf="fcode.errors?.['required']">Fiscal code is required</div>
+      <div *ngIf="fcode.errors?.['pattern']">Wrong fiscal code </div>
+    </div>
+    }
+    <div class="mb-3">
+      <label for="lastName" class="form-label">Phone</label>
+      <input type="phone" id="phone" name="phone" [(ngModel)]="user.phone" class="form-control" placeholder="phone">
+    </div>
+    <div class="mb-3">
+      <label for="province" class="form-label">Province</label>
+      <input type="text" id="province" name="province" [(ngModel)]="user.province" class="form-control"
+        placeholder="phone">
+    </div>
+    }
+    @else {
+    <div class="alert alert-danger">User not found</div>
+    }
+  
+    <div class="mb-3 text-center">
+      <a [routerLink]="['/users']" class="btn btn-secondary me-2">Back</a>
+      <button type="submit" [disabled]="!userForm.valid" class="btn btn-success me-2">Submit</button>
+      <button type="button" (click)="resetForm(userForm)" class="btn btn-secondary me-2">Reset</button>
+    </div>
+  </form>

@@ -1,0 +1,55 @@
+<br>
+<br>
+
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>&nbsp;</th>
+        <th scope="col">Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">Fiscal Code</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Email</th>
+        <th scope="col">Province</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (user of users; track user.email) {
+        <tr>
+          <!--<td>{{i+1}}</td>-->
+          <td>{{user.id}}</td>
+          <td>{{user.name}}</td>
+          <td>{{user.lastName}}</td>
+          <td>{{user.fiscalCode}}</td>
+          <td>{{user.phone}}</td>
+          <td>{{user.email}}</td>
+          <td>{{user.province}}</td>
+          <td>
+            <div clas="row d-flex justify-content-between align-items-justify">
+              <div class="col">
+                <a [routerLink]="['/users', user.id,'show']" class="btn btn-primary">
+                  <i class="bi bi-info-circle"></i>
+                </a>
+              </div>
+              <div class="col"> 
+                <a [routerLink]="['/users', user.id]" class="btn btn-primary" (click)="updateUser(user)">
+                  <i class=" bi bi-pen"></i>
+                </a>
+              </div>
+              <div class="col">
+                <button class="btn btn-danger" (click)="deleteUser(user)">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
+            </div>
+          </td> 
+        </tr>
+      }
+    @empty {
+      <tr>
+        <td colspan="7" style="text-align: center;">NO DATA</td>
+      </tr>
+      }
+    </tbody>
+  </table>
